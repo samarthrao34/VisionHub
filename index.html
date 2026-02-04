@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Vision Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Refined Dark Mode - Deep & Professional */
+            --bg-gradient: linear-gradient(135deg, #000000 0%, #0f172a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --card-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.9);
+            --input-bg: rgba(255, 255, 255, 0.02);
+            --nav-bg: rgba(255, 255, 255, 0.04);
+            --today-bg: #ffffff;
+            --today-text: #000000;
+            --action-bg: #ffffff;
+            --action-text: #000000;
+        }
+
+        .theme-light {
+            /* Light Mode - Clean & Airy with visible grids */
+            --bg-gradient: linear-gradient(135deg, #eef2f7 0%, #e2e8f0 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(0, 0, 0, 0.08); /* Subtle dark border for visibility */
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-blue: #2563eb;
+            --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --input-bg: #ffffff;
+            --nav-bg: rgba(0, 0, 0, 0.03);
+            --today-bg: #0f172a;
+            --today-text: #ffffff;
+            --action-bg: #0f172a;
+            --action-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-light .glass-dark {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* High-end shadows */
+        .shadow-pro {
+            box-shadow: var(--card-shadow);
+        }
+
+        .black-letter-heading {
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .quick-look-preview {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(10px);
+        }
+
+        .group:hover .quick-look-preview {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0px);
+            transition-delay: 0.1s;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+        .theme-light ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.08);
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::selection {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Universal visibility helpers */
+        .text-adaptive { color: var(--text-primary); }
+        .text-muted { color: var(--text-secondary); }
+        .border-adaptive { border-color: var(--glass-border); }
+        .bg-input { background: var(--input-bg); }
+        .bg-nav { background: var(--nav-bg); }
+        .bg-today { background: var(--today-bg); color: var(--today-text); }
+        .bg-action { background: var(--action-bg); color: var(--action-text); }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
