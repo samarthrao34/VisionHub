@@ -42,18 +42,18 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({ currentDate, events, onDate
   };
 
   return (
-    <div className="flex flex-col h-full select-none">
-      <div className="grid grid-cols-7 border-b border-adaptive bg-nav">
+    <div className="flex flex-col h-full select-none overflow-hidden">
+      <div className="grid grid-cols-7 border-b border-adaptive bg-nav shrink-0">
         {dayNames.map(day => (
-          <div key={day} className="py-6 text-center text-[11px] font-black opacity-40 tracking-[0.3em] text-adaptive">
+          <div key={day} className="py-3 md:py-4 text-center text-[9px] md:text-[11px] font-black opacity-40 tracking-[0.2em] text-adaptive">
             {day}
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 flex-1">
+      <div className="grid grid-cols-7 grid-rows-6 flex-1 min-h-0">
         {prevMonthDays.map(day => (
-          <div key={`prev-${day}`} className="border-r border-b border-adaptive p-5 bg-black/[0.1] opacity-20 min-h-[140px]">
-            <span className="text-sm font-black text-adaptive">{day}</span>
+          <div key={`prev-${day}`} className="border-r border-b border-adaptive p-2 md:p-3 bg-black/[0.1] opacity-20">
+            <span className="text-xs font-black text-adaptive">{day}</span>
           </div>
         ))}
         {currentMonthDays.map((day, index) => {
@@ -67,7 +67,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({ currentDate, events, onDate
             <div 
               key={`curr-${day}`} 
               onClick={() => onDateClick(new Date(year, month, day))}
-              className={`border-r border-b border-adaptive p-5 cursor-pointer transition-all hover:bg-white/[0.03] dark:hover:bg-white/[0.03] min-h-[140px] relative group overflow-visible`}
+              className={`border-r border-b border-adaptive p-2 md:p-3 cursor-pointer transition-all hover:bg-white/[0.03] relative group overflow-visible min-h-0 flex flex-col`}
             >
               {dayEvents.length > 0 && (
                 <div 
@@ -100,43 +100,48 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({ currentDate, events, onDate
                 </div>
               )}
 
-              <div className="flex justify-between items-start z-10 relative">
-                <span className={`text-sm w-11 h-11 flex items-center justify-center rounded-full transition-all font-black ${isToday ? 'bg-today shadow-lg scale-105' : 'text-adaptive opacity-70 group-hover:opacity-100'}`}>
+              <div className="flex justify-between items-start z-10 relative shrink-0">
+                <span className={`text-xs md:text-sm w-7 h-7 md:w-9 md:h-9 flex items-center justify-center rounded-full transition-all font-black ${isToday ? 'bg-today shadow-lg scale-105' : 'text-adaptive opacity-70 group-hover:opacity-100'}`}>
                   {day}
                 </span>
                 {dayEvents.length > 0 && (
-                  <div className="flex gap-1 mt-2">
+                  <div className="flex gap-0.5 mt-1">
                     {dayEvents.map((e, i) => {
                       const dotColor = e.type === 'Exam' ? 'bg-red-500' : 
                                        e.type === 'Workshop' ? 'bg-purple-500' :
                                        e.type === 'Lecture' ? 'bg-blue-500' :
                                        'bg-gray-400';
-                      return <div key={`${e.id}-${i}`} className={`${dotColor} w-1.5 h-1.5 rounded-full shadow-sm`} />;
+                      return <div key={`${e.id}-${i}`} className={`${dotColor} w-1 h-1 md:w-1.5 md:h-1.5 rounded-full shadow-sm`} />;
                     })}
                   </div>
                 )}
               </div>
               
-              <div className="mt-4 space-y-2 z-10 relative">
-                {dayEvents.slice(0, 3).map(event => {
+              <div className="mt-1 md:mt-2 space-y-1 z-10 relative flex-1 min-h-0 overflow-hidden">
+                {dayEvents.slice(0, 2).map(event => {
                   const style = getTypeStyle(event.type);
                   return (
                     <div 
                       key={event.id} 
-                      className={`text-[9px] truncate px-3 py-1.5 rounded-xl border ${style.border} font-black uppercase tracking-tighter transition-all group-hover:bg-white/5 flex items-center gap-2 ${style.bg} ${style.text}`}
+                      className={`text-[8px] md:text-[9px] truncate px-2 py-1 rounded-lg border ${style.border} font-black uppercase tracking-tighter transition-all group-hover:bg-white/5 flex items-center gap-1.5 ${style.bg} ${style.text}`}
                     >
                       <style.Icon />
                       <span className="truncate">{event.title}</span>
                     </div>
                   );
                 })}
+                {dayEvents.length > 2 && (
+                  <div className="text-[7px] md:text-[8px] font-black text-muted opacity-60 ml-1">
+                    +{dayEvents.length - 2} MORE
+                  </div>
+                )}
               </div>
             </div>
           );
         })}
         {nextMonthDays.map(day => (
-          <div key={`next-${day}`} className="border-r border-b border-adaptive p-5 bg-black/[0.1] opacity-20 min-h-[140px]">
-            <span className="text-sm font-black text-adaptive">{day}</span>
+          <div key={`next-${day}`} className="border-r border-b border-adaptive p-2 md:p-3 bg-black/[0.1] opacity-20">
+            <span className="text-xs font-black text-adaptive">{day}</span>
           </div>
         ))}
       </div>
