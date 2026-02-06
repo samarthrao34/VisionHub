@@ -1,4 +1,12 @@
 
+export interface RecurrenceRule {
+  frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  interval?: number; // Every N days/weeks/months/years
+  endDate?: string; // ISO date format
+  count?: number; // Number of occurrences
+  daysOfWeek?: number[]; // 0-6 for weekly recurrence
+}
+
 export interface EventData {
   id: string;
   title: string;
@@ -12,7 +20,10 @@ export interface EventData {
   imageUrl: string;
   type: 'Lecture' | 'Workshop' | 'Exam' | 'Holiday' | 'Other';
   reminderMinutes?: number; 
-  notified?: boolean; 
+  notified?: boolean;
+  color?: string; // Custom color override
+  recurrence?: RecurrenceRule;
+  parentEventId?: string; // For recurring event instances
 }
 
 export type ViewType = 'month' | 'week' | 'day';
@@ -21,4 +32,15 @@ export interface CalendarState {
   currentDate: Date;
   view: ViewType;
   events: EventData[];
+}
+
+export interface DragItem {
+  type: 'EVENT';
+  event: EventData;
+  sourceDate: string;
+}
+
+export interface DropResult {
+  date: string;
+  time?: string;
 }
