@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # VisionHub
 
 A modern, AI-powered calendar and event management application built with React and TypeScript. VisionHub helps you organize your schedule with intelligent features and a beautiful glass-morphism UI.
